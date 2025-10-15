@@ -1,10 +1,25 @@
 <script setup lang="ts">
+import { ref } from 'vue';
+
+import InputText from 'primevue/inputtext'
+import IconField from 'primevue/iconfield'
+import InputIcon from 'primevue/inputicon'
+
+import Password from 'primevue/password';
+
+import IftaLabel from 'primevue/iftalabel';
+
+
 import AuthLayout from '@/layout/AuthLayout.vue';
 import AuthForm from '@/components/AuthForm.vue';
 
 function handleSubmit () {
   alert('hola mundo')
 }
+
+const email = ref()
+const username = ref()
+const password = ref()
 
 </script>
 
@@ -19,6 +34,57 @@ function handleSubmit () {
       alt-label="aquí"
       alt-link-path="login"
     >
+      <IftaLabel>
+        <IconField>
+          <InputIcon>
+            <i class="pi pi-envelope" />
+          </InputIcon>
+          <InputText
+          id="emailInput"
+          v-model="email"
+          type="email"
+          placeholder="pepitoperez@mail.com"
+          autofocus
+          fluid
+          required="true"
+          />
+        </IconField>
+        <label for="emailInput">Email</label>
+      </IftaLabel>
+
+      <IftaLabel>
+        <IconField>
+          <InputIcon>
+            <i class="pi pi-user" />
+          </InputIcon>
+          <InputText
+          id="usernameInput"
+          v-model="username"
+          type="text"
+          placeholder="pperez2025"
+          autofocus
+          fluid
+          required="true"
+          />
+        </IconField>
+        <label for="usernameInput">Username</label>
+      </IftaLabel>
+
+      <IftaLabel>
+        <IconField>
+          <InputIcon>
+            <i class="pi pi-lock" />
+          </InputIcon>
+          <Password
+            v-model="password"
+            placeholder="**********"
+            toggleMask
+            feedback
+            fluid
+          />
+        </IconField>
+        <label for="usernameInput">Password</label>
+      </IftaLabel>
 
     </AuthForm>
   </AuthLayout>
