@@ -8,12 +8,10 @@ import InputText from 'primevue/inputtext'
 import IconField from 'primevue/iconfield'
 import InputIcon from 'primevue/inputicon'
 
-
-
 const email = ref()
 const password = ref()
 
-function handleSubmit(){
+function handleSubmit() {
   alert('Hola mundo')
 }
 </script>
@@ -29,33 +27,33 @@ function handleSubmit(){
       alt-link-path="register"
     >
       <IconField>
-          <InputIcon>
-            <i class="pi pi-user" />
-          </InputIcon>
-          <InputText
-            id="input"
-            v-model="email"
-            type="email"
-            placeholder="pepitoperez@mail.com"
-            autofocus
-            fluid
-            required="true"
-          />
-        </IconField>
+        <InputIcon>
+          <i class="pi pi-user" />
+        </InputIcon>
+        <InputText
+          id="input"
+          v-model="email"
+          type="email"
+          placeholder="pepitoperez@mail.com"
+          autofocus
+          fluid
+          required="true"
+        />
+      </IconField>
 
-        <IconField>
-          <InputIcon>
-            <i class="pi pi-lock" />
-          </InputIcon>
-          <InputText
-            id="password"
-            v-model="password"
-            type="password"
-            placeholder="password"
-            fluid
-            required="true"
-          />
-        </IconField>
+      <IconField>
+        <InputIcon>
+          <i class="pi pi-lock" />
+        </InputIcon>
+        <InputText
+          id="password"
+          v-model="password"
+          type="password"
+          placeholder="password"
+          fluid
+          required="true"
+        />
+      </IconField>
     </AuthForm>
   </AuthLayout>
 </template>
