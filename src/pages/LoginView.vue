@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+
+import useAuth from '@/composables/useAuth'
 
 import AuthLayout from '@/layout/AuthLayout.vue'
 import AuthForm from '@/components/AuthForm.vue'
@@ -8,11 +11,21 @@ import InputText from 'primevue/inputtext'
 import IconField from 'primevue/iconfield'
 import InputIcon from 'primevue/inputicon'
 
+const router = useRouter()
+const { login } = useAuth()
+
 const email = ref()
 const password = ref()
 
 function handleSubmit() {
   alert('Hola mundo')
+
+  try {
+    login(email.value, password.value)
+    router.push({ name: 'home'})
+  } catch (error) {
+    console.error('Error during login:', error)
+  }
 }
 </script>
 

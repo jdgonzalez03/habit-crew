@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 
 import InputText from 'primevue/inputtext'
 import IconField from 'primevue/iconfield'
@@ -9,12 +10,24 @@ import Password from 'primevue/password';
 
 import IftaLabel from 'primevue/iftalabel';
 
-
 import AuthLayout from '@/layout/AuthLayout.vue';
 import AuthForm from '@/components/AuthForm.vue';
 
+import useAuth from '@/composables/useAuth';
+
+const { registerWithEmail } = useAuth()
+const router = useRouter()
+
 function handleSubmit () {
   alert('hola mundo')
+
+  try {
+    registerWithEmail(email.value, password.value)
+    router.push({name: 'home'})
+  } catch (error) {
+    console.error('Error during registration:', error)
+  }
+
 }
 
 const email = ref()
