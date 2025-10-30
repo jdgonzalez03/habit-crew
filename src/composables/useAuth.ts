@@ -3,9 +3,23 @@ import { ref, computed, readonly } from 'vue';
 import { signUpWithEmail, loginWithEmail } from '@/services/authService';
 import type { User } from '@supabase/supabase-js';
 
-const auth = ref(false)
+const AUTH_STORAGE_KEY = 'auth_user'
 
 const authUser = ref<User | null>(null)
+
+function loadUserFromStorage () {
+  const storedUser = localStorage.getItem(AUTH_STORAGE_KEY)
+  if (storedUser) {
+    try {
+      const user = JSON.parse(storedUser)
+      authUser.value = user
+    } catch (error) {
+      console.error('Error loading user from storage:', error)
+    }
+  }
+}
+
+loadUserFromStorage()
 
 export default function useAuth () {
 
@@ -13,7 +27,6 @@ export default function useAuth () {
     try {
       const data = await signUpWithEmail({ email, password})
       authUser.value = data.user
-      auth.value = true
     } catch (error) {
       console.error('Error during registration:', error)
     }
@@ -23,7 +36,7 @@ export default function useAuth () {
     try{
       const data = await loginWithEmail({ email, password })
       authUser.value = data.user
-      auth.value = true
+      localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(data.user))
     } catch (error) {
       console.error('Error during login:', error)
     }
@@ -31,7 +44,7 @@ export default function useAuth () {
 
 
   return {
-    authIsLogin: computed(() => auth.value),
+    authIsLogin: computed(() => authUser.value !== null),
     authUser: readonly(authUser),
     registerWithEmail,
     login,

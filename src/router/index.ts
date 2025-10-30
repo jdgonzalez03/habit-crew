@@ -33,18 +33,24 @@ const router = createRouter({
   routes,
 })
 
-router.beforeEach((to) => {
+router.beforeEach(async (to) => {
   const auth = useAuth()
 
+  // Check if the user is authenticated
   const isLoggedIn = auth.authIsLogin.value
-  console.log(isLoggedIn)
 
+  // If the route requires authentication and the user is not logged in
   if (to.meta.requiresAuth && !isLoggedIn) {
-    return { path: '/login' }
+    return {
+      path: '/login',
+      // Store the original path to redirect after login
+      query: { redirect: to.fullPath }
+    }
   }
 
-  if ((to.path === '/login' || to.name === 'login' || to.path === '/register' || to.name === 'register') && isLoggedIn) {
-    return { path: '/' }
+  // If the user is logged in and tries to access auth pages
+  if ((to.path === '/login' || to.path === '/register') && isLoggedIn) {
+    return { path: to.query.redirect?.toString() || '/' }
   }
 
   return true
