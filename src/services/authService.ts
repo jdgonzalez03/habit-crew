@@ -15,6 +15,7 @@ export async function signUpWithEmail({ email, password }: { email: string; pass
   const { data, error } = await useSupabase().auth.signUp({
     email,
     password,
+    //TODO: Add meta data to redirect to home
     // options: {
     //   data: meta,
     // },
