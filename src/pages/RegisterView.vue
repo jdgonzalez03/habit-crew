@@ -19,8 +19,6 @@ const { registerWithEmail } = useAuth()
 const router = useRouter()
 
 function handleSubmit () {
-  alert('hola mundo')
-
   try {
     registerWithEmail(email.value, password.value)
     router.push({name: 'home'})

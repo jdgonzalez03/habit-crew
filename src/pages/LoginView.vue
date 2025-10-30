@@ -18,8 +18,6 @@ const email = ref()
 const password = ref()
 
 function handleSubmit() {
-  alert('Hola mundo')
-
   try {
     login(email.value, password.value)
     router.push({ name: 'home'})
