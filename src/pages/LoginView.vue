@@ -17,9 +17,9 @@ const { login } = useAuth()
 const email = ref()
 const password = ref()
 
-function handleSubmit() {
+async function handleSubmit() {
   try {
-    login(email.value, password.value)
+    await login(email.value, password.value)
     router.push({ name: 'home'})
   } catch (error) {
     console.error('Error during login:', error)

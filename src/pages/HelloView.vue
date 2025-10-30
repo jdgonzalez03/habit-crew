@@ -7,9 +7,9 @@ const router = useRouter()
 
 const { authUser, logout } = useAuth()
 
-function handleLogout () {
+async function handleLogout () {
   try {
-    logout()
+    await logout()
     router.push({ name: 'login' })
   } catch (error) {
     console.error('Error during logout:', error)
