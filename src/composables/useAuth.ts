@@ -1,6 +1,6 @@
 import { ref, computed, readonly } from 'vue';
 
-import { signUpWithEmail, loginWithEmail } from '@/services/authService';
+import { signUpWithEmail, loginWithEmail, logout } from '@/services/authService';
 import type { User } from '@supabase/supabase-js';
 
 const AUTH_STORAGE_KEY = 'auth_user'
@@ -42,11 +42,21 @@ export default function useAuth () {
     }
   }
 
+  async function logout () {
+    try {
+      await logout()
+      authUser.value = null
+      localStorage.removeItem(AUTH_STORAGE_KEY)
+    } catch (error) {
+      console.error('Error during logout:', error)
+    }
+  }
 
   return {
     authIsLogin: computed(() => authUser.value !== null),
     authUser: readonly(authUser),
     registerWithEmail,
     login,
+    logout,
   }
 }
