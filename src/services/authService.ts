@@ -1,6 +1,6 @@
 import { useSupabase } from '@/lib/supabase'
 
-export async function logout() {
+export async function logoutWithEmail() {
   const { error } = await useSupabase().auth.signOut()
   if (error) throw error
 }
